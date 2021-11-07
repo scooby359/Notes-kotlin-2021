@@ -9,7 +9,7 @@ class DataService {
             val list = mutableListOf<Note>()
 
             for(i in 0..20) {
-                list.add(Note("Note $i"))
+                list.add(Note("Note $i", "Description $i"))
             }
 
             return list

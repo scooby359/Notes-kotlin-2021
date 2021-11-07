@@ -2,13 +2,14 @@ package com.example.notes
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notes.databinding.FragmentNoteListBinding
+import com.google.android.material.textfield.TextInputLayout
 
 class NoteListFragment : Fragment() {
-
     private var _binding: FragmentNoteListBinding? = null
     private val binding get() = _binding!!
     private lateinit var  recyclerView: RecyclerView
@@ -29,9 +30,16 @@ class NoteListFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        recyclerView = binding.recyclerView
+        recyclerView = binding.noteRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = NoteAdapter()
+
+        val searchField = view.findViewById<TextInputLayout>(R.id.search_input)
+
+        // TODO - Bind to creating new note fragment
+        searchField.setEndIconOnClickListener {
+            Toast.makeText(context, "EndIcon Clicked", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onDestroyView() {

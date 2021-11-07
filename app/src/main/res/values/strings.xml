@@ -4,4 +4,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="note_list">Notes</string>
     <string name="status_icon">Status icon</string>
+    <string name="hidden_view_expansion_toggle">Hidden view expansion toggle</string>
+    <string name="search_icon">Search icon</string>
+    <string name="new_icon">New Icon</string>
 </resources>
