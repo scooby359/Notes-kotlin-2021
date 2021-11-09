@@ -1,7 +1,5 @@
 package com.example.notes
 
-import android.transition.AutoTransition
-import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,17 +9,19 @@ import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notes.data.DataService
+import com.example.notes.models.NoteType
 
 class NoteAdapter: RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
 
     private var list = DataService.getAllNotes("")
 
     class NoteViewHolder(view: View): RecyclerView.ViewHolder(view) {
-        val cardView = view.findViewById<CardView>(R.id.note_card)
-        val textView = view.findViewById<TextView>(R.id.note_list_text)
-        val description = view.findViewById<TextView>(R.id.note_description)
-        val arrow = view.findViewById<ImageView>(R.id.arrow_button)
-        val hiddenView = view.findViewById<ConstraintLayout>(R.id.hidden_view)
+        val cardView : CardView = view.findViewById(R.id.note_card)
+        val textView : TextView = view.findViewById(R.id.note_list_text)
+        val description : TextView = view.findViewById(R.id.note_description)
+        val arrow : ImageView = view.findViewById(R.id.arrow_button)
+        val hiddenView: ConstraintLayout = view.findViewById(R.id.hidden_view)
+        val icon : ImageView = view.findViewById(R.id.note_list_icon)
     }
 
     override fun getItemCount(): Int {
@@ -36,9 +36,15 @@ class NoteAdapter: RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
-        val item = list.get(position)
+        val item = list[position]
         holder.textView.text = item.name
         holder.description.text = item.description
+
+        when (item.type) {
+            NoteType.GOOD -> holder.icon.setImageResource(R.drawable.ic_good)
+            NoteType.BAD -> holder.icon.setImageResource(R.drawable.ic_bad)
+            NoteType.WARNING -> holder.icon.setImageResource(R.drawable.ic_warn)
+        }
 
         holder.cardView.setOnClickListener {
             // If view is currently visible, make invisible
@@ -59,7 +65,7 @@ class NoteAdapter: RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
 //        }
     }
 
-    public fun onSearchChange(value: String) {
+    fun onSearchChange(value: String) {
         list = DataService.getAllNotes(value)
         notifyDataSetChanged()
     }
