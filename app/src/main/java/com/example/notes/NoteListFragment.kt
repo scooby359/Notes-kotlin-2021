@@ -3,6 +3,7 @@ package com.example.notes
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -39,6 +40,11 @@ class NoteListFragment : Fragment() {
         // TODO - Bind to creating new note fragment
         searchField.setEndIconOnClickListener {
             Toast.makeText(context, "EndIcon Clicked", Toast.LENGTH_SHORT).show()
+        }
+
+        searchField.editText?.doOnTextChanged { inputText, _, _, _ ->
+            val adapter = recyclerView.adapter as NoteAdapter
+            adapter.onSearchChange(inputText.toString())
         }
     }
 

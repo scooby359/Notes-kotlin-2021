@@ -14,7 +14,7 @@ import com.example.notes.data.DataService
 
 class NoteAdapter: RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
 
-    private val list = DataService.getAllNotes()
+    private var list = DataService.getAllNotes("")
 
     class NoteViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val cardView = view.findViewById<CardView>(R.id.note_card)
@@ -57,6 +57,11 @@ class NoteAdapter: RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
 //            val action = LetterListFragmentDirections.actionLetterListFragmentToWordListFragment(letter = holder.button.text.toString())
 //            holder.view.findNavController().navigate(action)
 //        }
+    }
+
+    public fun onSearchChange(value: String) {
+        list = DataService.getAllNotes(value)
+        notifyDataSetChanged()
     }
 
 
